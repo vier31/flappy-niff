@@ -1,6 +1,10 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.vy = -1000
+    mySprite.vy = -200
 })
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    game.gameOver(false)
+})
+let mySprite2: Sprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -142,9 +146,37 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
-mySprite.ay = 200
+mySprite.ay = 100
 game.onUpdate(function () {
-    if (160 < mySprite.y) {
+    if (120 < mySprite.y) {
         game.gameOver(false)
     }
+})
+game.onUpdate(function () {
+    if (0 < mySprite.y) {
+        game.gameOver(false)
+    }
+})
+game.onUpdateInterval(1000, function () {
+    mySprite2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . 7 7 7 7 7 . . . . . . 
+        . . . . . 7 f 7 f 7 . . . . . . 
+        . . . . . 7 7 7 7 7 . . . . . . 
+        . . . . . 7 f f f 7 . . . . . . 
+        . . . . . 7 7 7 7 7 . . . . . . 
+        . . . . . 6 6 6 6 6 . . . . . . 
+        . 7 7 7 6 6 6 6 6 6 6 7 7 7 . . 
+        . 7 7 7 6 6 6 6 6 6 6 7 7 7 . . 
+        . 7 7 7 6 6 6 6 6 6 6 7 7 7 . . 
+        . . . . . 6 6 6 6 6 . . . . . . 
+        . . . . e e e . e e e . . . . . 
+        . . . . e e e . e e e . . . . . 
+        . . . . e e e . e e e . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    mySprite.x = 160
+    mySprite2.vx = -50
+    mySprite2.setFlag(SpriteFlag.AutoDestroy, true)
 })
