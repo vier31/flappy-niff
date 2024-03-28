@@ -1,5 +1,5 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.vy = -100
+    mySprite.vy = -1000
 })
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
@@ -144,7 +144,7 @@ scene.setBackgroundImage(img`
     `)
 mySprite.ay = 200
 game.onUpdate(function () {
-    if (true) {
-    	
+    if (160 < mySprite.y) {
+        game.gameOver(false)
     }
 })
